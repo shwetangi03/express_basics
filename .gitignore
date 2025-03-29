@@ -1,0 +1,16 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore logs
+npm-debug.log
+yarn-error.log
+
+# Ignore environment variables
+.env
+
+# Ignore build and distribution files
+dist/
+build/
+
+# DO NOT Ignore package-lock.json (recommended)
+# package-lock.json should be committed to maintain dependency versions
