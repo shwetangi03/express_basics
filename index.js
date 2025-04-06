@@ -16,21 +16,74 @@ connection.connect((err) => {
   }
   console.log("Connection has been created");
 
-  const creationQuery = `create table Students (
+  const userTable = `CREATE TABLE IF NOT EXISTS UserTable (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(20),
         email VARCHAR(20)
-    )`
+    )`;
 
-    connection.execute(creationQuery,(err)=>{
-        if(err){
-            console.log(err);
-            connection.end()
-            return;
-        }
-        console.log("Table is created");
-        
-    })
+  const bussesTable = `CREATE TABLE IF NOT EXISTS BussesTable (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      busNumber INT(20),
+      totalSeats INT(20),
+      availableSeats INT(20)
+  )`;
+  const bookingTable = `CREATE TABLE IF NOT EXISTS BookingTable (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      seatNumber INT(20)
+  )`;
+  const paymentTable = `CREATE TABLE IF NOT EXISTS PaymentTable (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      amountPaid INT(20),
+      paymentStatus VARCHAR(20)
+  )`;
+  const creationQuery = `CREATE TABLE IF NOT EXISTS Students (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(20),
+      email VARCHAR(20)
+  )`;
+
+  connection.execute(userTable, (err) => {
+    if (err) {
+      console.log(err);
+      connection.end();
+      return;
+    }
+    console.log("Table is created");
+  });
+  connection.execute(bussesTable, (err) => {
+    if (err) {
+      console.log(err);
+      connection.end();
+      return;
+    }
+    console.log("Table is created");
+  });
+  connection.execute(bookingTable, (err) => {
+    if (err) {
+      console.log(err);
+      connection.end();
+      return;
+    }
+    console.log("Table is created");
+  });
+  connection.execute(paymentTable, (err) => {
+    if (err) {
+      console.log(err);
+      connection.end();
+      return;
+    }
+    console.log("Table is created");
+  });
+
+  connection.execute(creationQuery, (err) => {
+    if (err) {
+      console.log(err);
+      connection.end();
+      return;
+    }
+    console.log("Table is created");
+  });
 });
 
 app.get("/", (req, res) => {
