@@ -1,25 +1,50 @@
 const userService = require("../service/userService");
+const { sendErrorResponse, sendResponse } = require("../utils/response");
 
-const getUsers = (req, res) => {
-  // Read the JSON file
-  let users;
-  users = userService.readingFile();
+const getUsers = async (req, res) => {
+  try {
+    // Read the JSON file
+    let users;
+    users = userService.readingFile();
 
-  //filter the users based on the query parameters
-  users = userService.sortingDataByParams(req.query, users);
+    //filter the users based on the query parameters
+    users = userService.sortingDataByParams(req.query, users);
 
-  res.json(users);
+    if (users > 10) {
+      return sendErrorResponse(res, {
+        message: "No users found",
+        statusCode: 404,
+      });
+    }
+
+    return sendResponse(res, users, 200);
+  } catch (error) {
+    return sendErrorResponse(res, {
+      message: "Internal server error",
+      statusCode: 500,
+    });
+  }
 };
 
-const addUser = (req, res) => {
-  const newUser = req.body;
+const addUser = async (req, res) => {
+  try {
+    const newUser = req.body;
 
-  if (!newUser.id || !newUser.username || !newUser.age) {
-    return res.status(400).json({ error: "id, username, and age are required" });
+    if (!newUser.id || !newUser.username || !newUser.age) {
+      return sendErrorResponse(res, {
+        message: "id, username, and age are required",
+        statusCode: 400,
+      });
+    }
+
+    const updatedUsers = userService.writeToFile(newUser);
+    return sendResponse(res, updatedUsers, 201);
+  } catch (error) {
+    return sendErrorResponse(res, {
+      message: "Internal server error",
+      statusCode: 500,
+    });
   }
-
-  const updatedUsers = userService.writeToFile(newUser);
-  res.status(201).json(updatedUsers);
 };
 
 module.exports = { getUsers, addUser };
