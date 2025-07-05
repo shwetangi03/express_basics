@@ -1,0 +1,53 @@
+# Dependency directory
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Lock file (optional to ignore)
+package-lock.json
+
+# Environment variables
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Optional npm cache directory
+.npm/
+
+# Testing
+coverage/
+.nyc_output/
+
+# System files
+*.swp
+*.bak
+*.tmp
+
+# TypeScript
+*.tsbuildinfo
+
+# PM2 process logs
+pids/
+*.pid
+*.seed
+
+# Optional debug files
+*.local
